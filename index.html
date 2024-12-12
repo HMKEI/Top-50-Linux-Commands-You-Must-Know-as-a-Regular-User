@@ -17,6 +17,22 @@
             color: white;
             padding: 10px 20px;
             text-align: center;
+            position: relative;
+        }
+        .download-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: #0dd1a3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .download-btn:hover {
+            background-color: #0cb48d;
         }
         .container {
             width: 80%;
@@ -33,7 +49,6 @@
             border-left: 4px solid #537a82;
             padding: 10px;
             margin: 15px 0;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
         .command h3 {
             margin: 0;
@@ -51,7 +66,6 @@
             background-color: #f0f0f0;
             padding: 10px;
             margin: 10px 0;
-          
         }
         footer {
             background-color: #ffffff;
@@ -62,16 +76,19 @@
             bottom: 0;
             width: 100%;
         }
-
     </style>
+    <!-- Include html2pdf.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
 <header>
-    <h1>Top 50 Linux Commands You Must Know as a Regular User<h1>
+    <h1>Top 50 Linux Commands You Must Know as a Regular User</h1>
+    <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
 </header>
 
-<div class="container">
+<div class="container" id="content">
+    <!-- محتوى الصفحة هنا -->
     <div class="command">
         <h3>1. ls</h3>
         <p> Display a list of files and directories in the current directory.</p>
@@ -79,396 +96,407 @@
         <div class="code">bash<br>ls</div>
         <div class="example">خيارات شائعة: <br> ls -l : عرض الملفات بتفاصيل إضافية (الحجم، التاريخ، الأذونات).<br> ls -a : عرض جميع الملفات، بما في ذلك الملفات المخفية.</div>
     </div>
-
     <div class="command">
-        <h3>2. pwd</h3>
-        <p> Print the current working directory.</p>
-        <p> يعرض المسار الكامل للدليل الحالي.</p>
-        <div class="code">bash<br>pwd</div>
-    </div>
+      <h3>2. pwd</h3>
+      <p> Print the current working directory.</p>
+      <p> يعرض المسار الكامل للدليل الحالي.</p>
+      <div class="code">bash<br>pwd</div>
+  </div>
 
-    <div class="command">
-        <h3>3. cd</h3>
-        <p> Change the current directory.</p>
-        <p> يستخدم لتغيير الدليل الحالي.</p>
-        <div class="code">bash<br>cd &lt;directory_name&gt;</div>
-        <div class="example">أمثلة:<br> cd /home/user : الانتقال إلى دليل /home/user.<br> cd .. : الرجوع إلى الدليل السابق.</div>
-    </div>
+  <div class="command">
+      <h3>3. cd</h3>
+      <p> Change the current directory.</p>
+      <p> يستخدم لتغيير الدليل الحالي.</p>
+      <div class="code">bash<br>cd &lt;directory_name&gt;</div>
+      <div class="example">أمثلة:<br> cd /home/user : الانتقال إلى دليل /home/user.<br> cd .. : الرجوع إلى الدليل السابق.</div>
+  </div>
 
-    <div class="command">
-        <h3>4. mkdir</h3>
-        <p> Create new directories.</p>
-        <p> إنشاء مجلد جديد.</p>
-        <div class="code">bash<br>mkdir &lt;directory_name&gt;</div>
-        <div class="example">أمثلة:<br> mkdir projects : إنشاء مجلد باسم projects.</div>
-    </div>
+  <div class="command">
+      <h3>4. mkdir</h3>
+      <p> Create new directories.</p>
+      <p> إنشاء مجلد جديد.</p>
+      <div class="code">bash<br>mkdir &lt;directory_name&gt;</div>
+      <div class="example">أمثلة:<br> mkdir projects : إنشاء مجلد باسم projects.</div>
+  </div>
 
-    <div class="command">
-        <h3>5. mv</h3>
-        <p> Move or rename files and directories.</p>
-        <p> نقل أو إعادة تسمية الملفات والمجلدات.</p>
-        <div class="code">bash<br>mv &lt;source&gt; &lt;destination&gt;</div>
-        <div class="example">أمثلة:<br> mv file1.txt folder/ : نقل الملف file1.txt إلى المجلد folder.<br> mv old_name.txt new_name.txt : إعادة تسمية الملف.</div>
-    </div>
+  <div class="command">
+      <h3>5. mv</h3>
+      <p> Move or rename files and directories.</p>
+      <p> نقل أو إعادة تسمية الملفات والمجلدات.</p>
+      <div class="code">bash<br>mv &lt;source&gt; &lt;destination&gt;</div>
+      <div class="example">أمثلة:<br> mv file1.txt folder/ : نقل الملف file1.txt إلى المجلد folder.<br> mv old_name.txt new_name.txt : إعادة تسمية الملف.</div>
+  </div>
 
-    <div class="command">
-        <h3>6. rm</h3>
-        <p> Remove files or directories.</p>
-        <p> حذف الملفات أو المجلدات.</p>
-        <div class="code">bash<br>rm &lt;file_name&gt;</div>
-        <div class="example">أمثلة:<br> rm file1.txt : حذف الملف file1.txt.</div>
-    </div>
+  <div class="command">
+      <h3>6. rm</h3>
+      <p> Remove files or directories.</p>
+      <p> حذف الملفات أو المجلدات.</p>
+      <div class="code">bash<br>rm &lt;file_name&gt;</div>
+      <div class="example">أمثلة:<br> rm file1.txt : حذف الملف file1.txt.</div>
+  </div>
 
-    <div class="command">
-        <h3>7. rmdir</h3>
-        <p> Remove an empty directory.</p>
-        <p> حذف مجلد فارغ.</p>
-        <div class="code">bash<br>rmdir &lt;directory_name&gt;</div>
-        <div class="example">أمثلة:<br> rmdir folder : حذف المجلد folder (إذا كان فارغًا).</div>
-    </div>
+  <div class="command">
+      <h3>7. rmdir</h3>
+      <p> Remove an empty directory.</p>
+      <p> حذف مجلد فارغ.</p>
+      <div class="code">bash<br>rmdir &lt;directory_name&gt;</div>
+      <div class="example">أمثلة:<br> rmdir folder : حذف المجلد folder (إذا كان فارغًا).</div>
+  </div>
 
-    <div class="command">
-        <h3>8. touch</h3>
-        <p> Create a new empty file or update the timestamp of an existing file.</p>
-        <p> إنشاء ملف فارغ أو تحديث الطابع الزمني لملف موجود.</p>
-        <div class="code">bash<br>touch &lt;file_name&gt;</div>
-        <div class="example">أمثلة:<br> touch newfile.txt : إنشاء ملف جديد باسم newfile.txt.</div>
-    </div>
+  <div class="command">
+      <h3>8. touch</h3>
+      <p> Create a new empty file or update the timestamp of an existing file.</p>
+      <p> إنشاء ملف فارغ أو تحديث الطابع الزمني لملف موجود.</p>
+      <div class="code">bash<br>touch &lt;file_name&gt;</div>
+      <div class="example">أمثلة:<br> touch newfile.txt : إنشاء ملف جديد باسم newfile.txt.</div>
+  </div>
 
-    <div class="command">
-        <h3>9. cat</h3>
-        <p> Concatenate and display file content.</p>
-        <p> دمج وعرض محتوى الملفات.</p>
-        <div class="code">bash<br>cat &lt;file_name&gt;</div>
-        <div class="example">أمثلة:<br> cat file1.txt : عرض محتوى الملف file1.txt.</div>
-    </div>
+  <div class="command">
+      <h3>9. cat</h3>
+      <p> Concatenate and display file content.</p>
+      <p> دمج وعرض محتوى الملفات.</p>
+      <div class="code">bash<br>cat &lt;file_name&gt;</div>
+      <div class="example">أمثلة:<br> cat file1.txt : عرض محتوى الملف file1.txt.</div>
+  </div>
 
-    <div class="command">
-        <h3>10. cp</h3>
-        <p> Copy files or directories.</p>
-        <p> نسخ الملفات أو المجلدات.</p>
-        <div class="code">bash<br>cp &lt;source&gt; &lt;destination&gt;</div>
-        <div class="example">أمثلة:<br> cp file1.txt /home/user/ : نسخ الملف file1.txt إلى المجلد /home/user/.</div>
-    </div>
+  <div class="command">
+      <h3>10. cp</h3>
+      <p> Copy files or directories.</p>
+      <p> نسخ الملفات أو المجلدات.</p>
+      <div class="code">bash<br>cp &lt;source&gt; &lt;destination&gt;</div>
+      <div class="example">أمثلة:<br> cp file1.txt /home/user/ : نسخ الملف file1.txt إلى المجلد /home/user/.</div>
+  </div>
 
-    <div class="command">
-        <h3>11. man</h3>
-        <p> Display the manual for a command.</p>
-        <p> عرض دليل الاستخدام للأوامر.</p>
-        <div class="code">bash<br>man &lt;command&gt;</div>
-        <div class="example">أمثلة:<br> man ls : عرض دليل الأمر ls.</div>
-    </div>
+  <div class="command">
+      <h3>11. man</h3>
+      <p> Display the manual for a command.</p>
+      <p> عرض دليل الاستخدام للأوامر.</p>
+      <div class="code">bash<br>man &lt;command&gt;</div>
+      <div class="example">أمثلة:<br> man ls : عرض دليل الأمر ls.</div>
+  </div>
 
-    <div class="command">
-        <h3>12. history</h3>
-        <p> Display the history of commands used.</p>
-        <p> عرض تاريخ الأوامر التي تم استخدامها.</p>
-        <div class="code">bash<br>history</div>
-    </div>
+  <div class="command">
+      <h3>12. history</h3>
+      <p> Display the history of commands used.</p>
+      <p> عرض تاريخ الأوامر التي تم استخدامها.</p>
+      <div class="code">bash<br>history</div>
+  </div>
 
-    <div class="command">
-        <h3>13. clear</h3>
-        <p> Clear the terminal screen.</p>
-        <p> مسح شاشة الطرفية.</p>
-        <div class="code">bash<br>clear</div>
-    </div>
+  <div class="command">
+      <h3>13. clear</h3>
+      <p> Clear the terminal screen.</p>
+      <p> مسح شاشة الطرفية.</p>
+      <div class="code">bash<br>clear</div>
+  </div>
 
-    <div class="command">
-        <h3>14. grep</h3>
-        <p> Search for a pattern in files.</p>
-        <p> البحث عن نمط معين في الملفات.</p>
-        <div class="code">bash<br>grep &lt;pattern&gt; &lt;file&gt;</div>
-        <div class="example">أمثلة:<br> grep 'text' file1.txt : البحث عن النص "text" في الملف file1.txt.</div>
-    </div>
+  <div class="command">
+      <h3>14. grep</h3>
+      <p> Search for a pattern in files.</p>
+      <p> البحث عن نمط معين في الملفات.</p>
+      <div class="code">bash<br>grep &lt;pattern&gt; &lt;file&gt;</div>
+      <div class="example">أمثلة:<br> grep 'text' file1.txt : البحث عن النص "text" في الملف file1.txt.</div>
+  </div>
 
-    <div class="command">
-        <h3>15. echo</h3>
-        <p> Display a line of text or a variable's value.</p>
-        <p> عرض سطر من النص أو قيمة متغير.</p>
-        <div class="code">bash<br>echo &lt;text&gt;</div>
-        <div class="example">أمثلة:<br> echo 'Hello World' : عرض النص "Hello World".</div>
-    </div>
+  <div class="command">
+      <h3>15. echo</h3>
+      <p> Display a line of text or a variable's value.</p>
+      <p> عرض سطر من النص أو قيمة متغير.</p>
+      <div class="code">bash<br>echo &lt;text&gt;</div>
+      <div class="example">أمثلة:<br> echo 'Hello World' : عرض النص "Hello World".</div>
+  </div>
 
-    <div class="command">
-        <h3>16. find</h3>
-        <p> Search for files in a directory hierarchy.</p>
-        <p> البحث عن الملفات ضمن هيكل المجلدات.</p>
-        <div class="code">bash<br>find &lt;directory&gt; -name &lt;filename&gt;</div>
-        <div class="example">أمثلة:<br> find /home/user -name '*.txt' : البحث عن جميع الملفات ذات الامتداد .txt في المجلد /home/user.</div>
-    </div>
+  <div class="command">
+      <h3>16. find</h3>
+      <p> Search for files in a directory hierarchy.</p>
+      <p> البحث عن الملفات ضمن هيكل المجلدات.</p>
+      <div class="code">bash<br>find &lt;directory&gt; -name &lt;filename&gt;</div>
+      <div class="example">أمثلة:<br> find /home/user -name '*.txt' : البحث عن جميع الملفات ذات الامتداد .txt في المجلد /home/user.</div>
+  </div>
 
-    <div class="command">
-        <h3>17. tar</h3>
-        <p> Archive files into a tarball (compressed file).</p>
-        <p> أرشفة الملفات إلى ملف مضغوط.</p>
-        <div class="code">bash<br>tar -cvf archive.tar &lt;file1&gt; &lt;file2&gt;</div>
-        <div class="example">أمثلة:<br> tar -cvf archive.tar file1.txt file2.txt : إنشاء أرشيف tar يتضمن الملفين file1.txt و file2.txt.</div>
-    </div>
+  <div class="command">
+      <h3>17. tar</h3>
+      <p> Archive files into a tarball (compressed file).</p>
+      <p> أرشفة الملفات إلى ملف مضغوط.</p>
+      <div class="code">bash<br>tar -cvf archive.tar &lt;file1&gt; &lt;file2&gt;</div>
+      <div class="example">أمثلة:<br> tar -cvf archive.tar file1.txt file2.txt : إنشاء أرشيف tar يتضمن الملفين file1.txt و file2.txt.</div>
+  </div>
 
-    <div class="command">
-        <h3>18. unzip</h3>
-        <p> Extract compressed zip files.</p>
-        <p> استخراج الملفات المضغوطة بتنسيق zip.</p>
-        <div class="code">bash<br>unzip archive.zip</div>
-    </div>
+  <div class="command">
+      <h3>18. unzip</h3>
+      <p> Extract compressed zip files.</p>
+      <p> استخراج الملفات المضغوطة بتنسيق zip.</p>
+      <div class="code">bash<br>unzip archive.zip</div>
+  </div>
 
-    <div class="command">
-        <h3>19. df</h3>
-        <p> Display disk space usage.</p>
-        <p> عرض استخدام المساحة على القرص.</p>
-        <div class="code">bash<br>df</div>
-    </div>
+  <div class="command">
+      <h3>19. df</h3>
+      <p> Display disk space usage.</p>
+      <p> عرض استخدام المساحة على القرص.</p>
+      <div class="code">bash<br>df</div>
+  </div>
 
-    <div class="command">
-        <h3>20. du</h3>
-        <p> Display disk usage for files and directories.</p>
-        <p> عرض استخدام المساحة في الملفات والمجلدات.</p>
-        <div class="code">bash<br>du -sh &lt;directory&gt;</div>
+  <div class="command">
+      <h3>20. du</h3>
+      <p> Display disk usage for files and directories.</p>
+      <p> عرض استخدام المساحة في الملفات والمجلدات.</p>
+      <div class="code">bash<br>du -sh &lt;directory&gt;</div>
 
 <div class="command">
-  <h3>21. ps</h3>
-  <p> Display information about running processes.</p>
-  <p> عرض معلومات عن العمليات الجارية.</p>
-  <div class="code">bash<br>ps</div>
+<h3>21. ps</h3>
+<p> Display information about running processes.</p>
+<p> عرض معلومات عن العمليات الجارية.</p>
+<div class="code">bash<br>ps</div>
 </div>
 
 <div class="command">
-  <h3>22. kill</h3>
-  <p> Terminate a process.</p>
-  <p> إنهاء عملية معينة.</p>
-  <div class="code">bash<br>kill &lt;PID&gt;</div>
-  <div class="example">أمثلة:<br> kill 1234 : إنهاء العملية التي رقم معرفها 1234.</div>
+<h3>22. kill</h3>
+<p> Terminate a process.</p>
+<p> إنهاء عملية معينة.</p>
+<div class="code">bash<br>kill &lt;PID&gt;</div>
+<div class="example">أمثلة:<br> kill 1234 : إنهاء العملية التي رقم معرفها 1234.</div>
 </div>
 
 <div class="command">
-  <h3>23. chmod</h3>
-  <p> Change file permissions.</p>
-  <p> تغيير أذونات الملفات.</p>
-  <div class="code">bash<br>chmod &lt;permissions&gt; &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> chmod 755 file1.txt : تعيين الأذونات 755 للملف file1.txt.</div>
+<h3>23. chmod</h3>
+<p> Change file permissions.</p>
+<p> تغيير أذونات الملفات.</p>
+<div class="code">bash<br>chmod &lt;permissions&gt; &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> chmod 755 file1.txt : تعيين الأذونات 755 للملف file1.txt.</div>
 </div>
 
 <div class="command">
-  <h3>24. chown</h3>
-  <p> Change file owner and group.</p>
-  <p> تغيير مالك الملف والمجموعة.</p>
-  <div class="code">bash<br>chown &lt;user&gt;:&lt;group&gt; &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> chown user:group file1.txt : تغيير مالك الملف إلى "user" والمجموعة إلى "group".</div>
+<h3>24. chown</h3>
+<p> Change file owner and group.</p>
+<p> تغيير مالك الملف والمجموعة.</p>
+<div class="code">bash<br>chown &lt;user&gt;:&lt;group&gt; &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> chown user:group file1.txt : تغيير مالك الملف إلى "user" والمجموعة إلى "group".</div>
 </div>
 
 <div class="command">
-  <h3>25. ln</h3>
-  <p> Create hard and symbolic links.</p>
-  <p> إنشاء روابط صلبة ورمزية.</p>
-  <div class="code">bash<br>ln &lt;source&gt; &lt;link_name&gt;</div>
-  <div class="example">أمثلة:<br> ln -s /path/to/file symlink : إنشاء رابط رمزي.</div>
+<h3>25. ln</h3>
+<p> Create hard and symbolic links.</p>
+<p> إنشاء روابط صلبة ورمزية.</p>
+<div class="code">bash<br>ln &lt;source&gt; &lt;link_name&gt;</div>
+<div class="example">أمثلة:<br> ln -s /path/to/file symlink : إنشاء رابط رمزي.</div>
 </div>
 
 <div class="command">
-  <h3>26. wget</h3>
-  <p> Download files from the internet.</p>
-  <p> تحميل الملفات من الإنترنت.</p>
-  <div class="code">bash<br>wget &lt;URL&gt;</div>
-  <div class="example">أمثلة:<br> wget http://example.com/file.zip : تحميل الملف من الرابط.</div>
+<h3>26. wget</h3>
+<p> Download files from the internet.</p>
+<p> تحميل الملفات من الإنترنت.</p>
+<div class="code">bash<br>wget &lt;URL&gt;</div>
+<div class="example">أمثلة:<br> wget http://example.com/file.zip : تحميل الملف من الرابط.</div>
 </div>
 
 <div class="command">
-  <h3>27. curl</h3>
-  <p> Transfer data from or to a server.</p>
-  <p> نقل البيانات من أو إلى الخادم.</p>
-  <div class="code">bash<br>curl &lt;URL&gt;</div>
-  <div class="example">أمثلة:<br> curl http://example.com : جلب محتوى صفحة الويب.</div>
+<h3>27. curl</h3>
+<p> Transfer data from or to a server.</p>
+<p> نقل البيانات من أو إلى الخادم.</p>
+<div class="code">bash<br>curl &lt;URL&gt;</div>
+<div class="example">أمثلة:<br> curl http://example.com : جلب محتوى صفحة الويب.</div>
 </div>
 
 <div class="command">
-  <h3>28. alias</h3>
-  <p> Create a shortcut for a command.</p>
-  <p> إنشاء اختصار لأمر معين.</p>
-  <div class="code">bash<br>alias &lt;alias_name&gt;=&lt;command&gt;</div>
-  <div class="example">أمثلة:<br> alias ll='ls -l' : إنشاء اختصار للأمر ls -l باسم ll.</div>
+<h3>28. alias</h3>
+<p> Create a shortcut for a command.</p>
+<p> إنشاء اختصار لأمر معين.</p>
+<div class="code">bash<br>alias &lt;alias_name&gt;=&lt;command&gt;</div>
+<div class="example">أمثلة:<br> alias ll='ls -l' : إنشاء اختصار للأمر ls -l باسم ll.</div>
 </div>
 
 <div class="command">
-  <h3>29. unalias</h3>
-  <p> Remove a shortcut (alias).</p>
-  <p> إزالة الاختصار (alias).</p>
-  <div class="code">bash<br>unalias &lt;alias_name&gt;</div>
-  <div class="example">أمثلة:<br> unalias ll : إزالة الاختصار ll.</div>
+<h3>29. unalias</h3>
+<p> Remove a shortcut (alias).</p>
+<p> إزالة الاختصار (alias).</p>
+<div class="code">bash<br>unalias &lt;alias_name&gt;</div>
+<div class="example">أمثلة:<br> unalias ll : إزالة الاختصار ll.</div>
 </div>
 
 <div class="command">
-  <h3>30. uname</h3>
-  <p> Display system information.</p>
-  <p> عرض معلومات النظام.</p>
-  <div class="code">bash<br>uname -a</div>
-  <div class="example">أمثلة:<br> uname -a : عرض معلومات النظام التفصيلية.</div>
+<h3>30. uname</h3>
+<p> Display system information.</p>
+<p> عرض معلومات النظام.</p>
+<div class="code">bash<br>uname -a</div>
+<div class="example">أمثلة:<br> uname -a : عرض معلومات النظام التفصيلية.</div>
 </div>
 
 <div class="command">
-  <h3>31. top</h3>
-  <p> Display real-time system processes.</p>
-  <p> عرض العمليات الجارية في النظام بشكل مباشر.</p>
-  <div class="code">bash<br>top</div>
+<h3>31. top</h3>
+<p> Display real-time system processes.</p>
+<p> عرض العمليات الجارية في النظام بشكل مباشر.</p>
+<div class="code">bash<br>top</div>
 </div>
 
 <div class="command">
-  <h3>32. htop</h3>
-  <p> Interactive process viewer (requires installation).</p>
-  <p> عرض العمليات الجارية بشكل تفاعلي (يتطلب التثبيت).</p>
-  <div class="code">bash<br>htop</div>
+<h3>32. htop</h3>
+<p> Interactive process viewer (requires installation).</p>
+<p> عرض العمليات الجارية بشكل تفاعلي (يتطلب التثبيت).</p>
+<div class="code">bash<br>htop</div>
 </div>
 
 <div class="command">
-  <h3>33. sudo</h3>
-  <p> Execute a command as a superuser or another user.</p>
-  <p> تنفيذ أمر كمستخدم متميز (سوبر يوزر) أو مستخدم آخر.</p>
-  <div class="code">bash<br>sudo &lt;command&gt;</div>
-  <div class="example">أمثلة:<br> sudo apt-get update : تحديث حزم النظام باستخدام صلاحيات الجذر.</div>
+<h3>33. sudo</h3>
+<p> Execute a command as a superuser or another user.</p>
+<p> تنفيذ أمر كمستخدم متميز (سوبر يوزر) أو مستخدم آخر.</p>
+<div class="code">bash<br>sudo &lt;command&gt;</div>
+<div class="example">أمثلة:<br> sudo apt-get update : تحديث حزم النظام باستخدام صلاحيات الجذر.</div>
 </div>
 
 <div class="command">
-  <h3>34. apt</h3>
-  <p> Package management tool for Debian-based distributions.</p>
-  <p> أداة إدارة الحزم للتوزيعات المبنية على ديبيان.</p>
-  <div class="code">bash<br>sudo apt install &lt;package_name&gt;</div>
-  <div class="example">أمثلة:<br> sudo apt install git : تثبيت أداة Git.</div>
+<h3>34. apt</h3>
+<p> Package management tool for Debian-based distributions.</p>
+<p> أداة إدارة الحزم للتوزيعات المبنية على ديبيان.</p>
+<div class="code">bash<br>sudo apt install &lt;package_name&gt;</div>
+<div class="example">أمثلة:<br> sudo apt install git : تثبيت أداة Git.</div>
 </div>
 
 <div class="command">
-  <h3>35. yum</h3>
-  <p> Package management tool for Red Hat-based distributions.</p>
-  <p> أداة إدارة الحزم للتوزيعات المبنية على ريد هات.</p>
-  <div class="code">bash<br>sudo yum install &lt;package_name&gt;</div>
-  <div class="example">أمثلة:<br> sudo yum install git : تثبيت أداة Git على أنظمة ريد هات.</div>
+<h3>35. yum</h3>
+<p> Package management tool for Red Hat-based distributions.</p>
+<p> أداة إدارة الحزم للتوزيعات المبنية على ريد هات.</p>
+<div class="code">bash<br>sudo yum install &lt;package_name&gt;</div>
+<div class="example">أمثلة:<br> sudo yum install git : تثبيت أداة Git على أنظمة ريد هات.</div>
 </div>
 
 <div class="command">
-  <h3>36. nano</h3>
-  <p> Text editor for the terminal.</p>
-  <p> محرر نصوص يعمل في الطرفية.</p>
-  <div class="code">bash<br>nano &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> nano file1.txt : فتح الملف file1.txt باستخدام محرر nano.</div>
+<h3>36. nano</h3>
+<p> Text editor for the terminal.</p>
+<p> محرر نصوص يعمل في الطرفية.</p>
+<div class="code">bash<br>nano &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> nano file1.txt : فتح الملف file1.txt باستخدام محرر nano.</div>
 </div>
 
 <div class="command">
-  <h3>37. vim</h3>
-  <p> Advanced text editor for the terminal.</p>
-  <p> محرر نصوص متقدم يعمل في الطرفية.</p>
-  <div class="code">bash<br>vim &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> vim file1.txt : فتح الملف file1.txt باستخدام محرر vim.</div>
+<h3>37. vim</h3>
+<p> Advanced text editor for the terminal.</p>
+<p> محرر نصوص متقدم يعمل في الطرفية.</p>
+<div class="code">bash<br>vim &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> vim file1.txt : فتح الملف file1.txt باستخدام محرر vim.</div>
 </div>
 
 <div class="command">
-  <h3>38. sed</h3>
-  <p> Stream editor for modifying files or input.</p>
-  <p> محرر تدفق لتعديل الملفات أو الإدخال.</p>
-  <div class="code">bash<br>sed 's/&lt;old_text&gt;/&lt;new_text&gt;/' &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> sed 's/old/new/' file.txt : استبدال النص "old" بـ "new" في الملف file.txt.</div>
+<h3>38. sed</h3>
+<p> Stream editor for modifying files or input.</p>
+<p> محرر تدفق لتعديل الملفات أو الإدخال.</p>
+<div class="code">bash<br>sed 's/&lt;old_text&gt;/&lt;new_text&gt;/' &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> sed 's/old/new/' file.txt : استبدال النص "old" بـ "new" في الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>39. awk</h3>
-  <p> Pattern scanning and processing language.</p>
-  <p> لغة مسح الأنماط ومعالجة البيانات.</p>
-  <div class="code">bash<br>awk '{print $1}' &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> awk '{print $1}' file.txt : طباعة العمود الأول من الملف file.txt.</div>
+<h3>39. awk</h3>
+<p> Pattern scanning and processing language.</p>
+<p> لغة مسح الأنماط ومعالجة البيانات.</p>
+<div class="code">bash<br>awk '{print $1}' &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> awk '{print $1}' file.txt : طباعة العمود الأول من الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>40. cut</h3>
-  <p> Remove sections from each line of files.</p>
-  <p> إزالة أجزاء من كل سطر في الملفات.</p>
-  <div class="code">bash<br>cut -d' ' -f1 &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> cut -d' ' -f1 file.txt : استخراج العمود الأول من الملف file.txt.</div>
+<h3>40. cut</h3>
+<p> Remove sections from each line of files.</p>
+<p> إزالة أجزاء من كل سطر في الملفات.</p>
+<div class="code">bash<br>cut -d' ' -f1 &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> cut -d' ' -f1 file.txt : استخراج العمود الأول من الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>41. sort</h3>
-  <p> Sort lines of text files.</p>
-  <p> ترتيب أسطر النصوص في الملفات.</p>
-  <div class="code">bash<br>sort &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> sort file.txt : ترتيب أسطر الملف file.txt.</div>
+<h3>41. sort</h3>
+<p> Sort lines of text files.</p>
+<p> ترتيب أسطر النصوص في الملفات.</p>
+<div class="code">bash<br>sort &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> sort file.txt : ترتيب أسطر الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>42. uniq</h3>
-  <p> Report or omit repeated lines.</p>
-  <p> إبلاغ أو إزالة الأسطر المكررة.</p>
-  <div class="code">bash<br>uniq &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> uniq file.txt : إزالة الأسطر المكررة من الملف file.txt.</div>
+<h3>42. uniq</h3>
+<p> Report or omit repeated lines.</p>
+<p> إبلاغ أو إزالة الأسطر المكررة.</p>
+<div class="code">bash<br>uniq &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> uniq file.txt : إزالة الأسطر المكررة من الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>43. wc</h3>
-  <p> Print the word, line, character, or byte counts.</p>
-  <p> طباعة عدد الكلمات أو الأسطر أو الأحرف أو البايتات.</p>
-  <div class="code">bash<br>wc &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> wc file.txt : عرض عدد الأسطر والكلمات والأحرف في الملف file.txt.</div>
+<h3>43. wc</h3>
+<p> Print the word, line, character, or byte counts.</p>
+<p> طباعة عدد الكلمات أو الأسطر أو الأحرف أو البايتات.</p>
+<div class="code">bash<br>wc &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> wc file.txt : عرض عدد الأسطر والكلمات والأحرف في الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>44. tr</h3>
-  <p> Translate or delete characters.</p>
-  <p> ترجمة أو حذف الأحرف.</p>
-  <div class="code">bash<br>tr 'a-z' 'A-Z' &lt;file_name&gt;</div>
-  <div class="example">أمثلة:<br> tr 'a-z' 'A-Z' file.txt : تحويل الأحرف من صغيرة إلى كبيرة في الملف file.txt.</div>
+<h3>44. tr</h3>
+<p> Translate or delete characters.</p>
+<p> ترجمة أو حذف الأحرف.</p>
+<div class="code">bash<br>tr 'a-z' 'A-Z' &lt;file_name&gt;</div>
+<div class="example">أمثلة:<br> tr 'a-z' 'A-Z' file.txt : تحويل الأحرف من صغيرة إلى كبيرة في الملف file.txt.</div>
 </div>
 
 <div class="command">
-  <h3>45. diff</h3>
-  <p> Compare files line by line.</p>
-  <p> مقارنة الملفات سطرًا بسطر.</p>
-  <div class="code">bash<br>diff &lt;file1&gt; &lt;file2&gt;</div>
-  <div class="example">أمثلة:<br> diff file1.txt file2.txt : مقارنة الملفين file1.txt و file2.txt.</div>
+<h3>45. diff</h3>
+<p> Compare files line by line.</p>
+<p> مقارنة الملفات سطرًا بسطر.</p>
+<div class="code">bash<br>diff &lt;file1&gt; &lt;file2&gt;</div>
+<div class="example">أمثلة:<br> diff file1.txt file2.txt : مقارنة الملفين file1.txt و file2.txt.</div>
 </div>
 
 <div class="command">
-  <h3>46. cmp</h3>
-  <p> Compare two files byte by byte.</p>
-  <p> مقارنة ملفين بايت بايت.</p>
-  <div class="code">bash<br>cmp &lt;file1&gt; &lt;file2&gt;</div>
-  <div class="example">أمثلة:<br> cmp file1.txt file2.txt : مقارنة الملفين file1.txt و file2.txt بايت بايت.</div>
+<h3>46. cmp</h3>
+<p> Compare two files byte by byte.</p>
+<p> مقارنة ملفين بايت بايت.</p>
+<div class="code">bash<br>cmp &lt;file1&gt; &lt;file2&gt;</div>
+<div class="example">أمثلة:<br> cmp file1.txt file2.txt : مقارنة الملفين file1.txt و file2.txt بايت بايت.</div>
 </div>
 
 <div class="command">
-  <h3>47. find</h3>
-  <p> Search for files in a directory hierarchy.</p>
-  <p> البحث عن ملفات في هيكل الدليل.</p>
-  <div class="code">bash<br>find /path/to/dir -name '&lt;pattern&gt;'</div>
-  <div class="example">أمثلة:<br> find /home/user -name '*.txt' : البحث عن جميع الملفات ذات الامتداد .txt في دليل /home/user.</div>
+<h3>47. find</h3>
+<p> Search for files in a directory hierarchy.</p>
+<p> البحث عن ملفات في هيكل الدليل.</p>
+<div class="code">bash<br>find /path/to/dir -name '&lt;pattern&gt;'</div>
+<div class="example">أمثلة:<br> find /home/user -name '*.txt' : البحث عن جميع الملفات ذات الامتداد .txt في دليل /home/user.</div>
 </div>
 
 <div class="command">
-  <h3>48. locate</h3>
-  <p> Find files by name.</p>
-  <p> العثور على الملفات باستخدام الاسم.</p>
-  <div class="code">bash<br>locate &lt;filename&gt;</div>
-  <div class="example">أمثلة:<br> locate file1.txt : العثور على جميع الأماكن التي يوجد فيها الملف file1.txt.</div>
+<h3>48. locate</h3>
+<p> Find files by name.</p>
+<p> العثور على الملفات باستخدام الاسم.</p>
+<div class="code">bash<br>locate &lt;filename&gt;</div>
+<div class="example">أمثلة:<br> locate file1.txt : العثور على جميع الأماكن التي يوجد فيها الملف file1.txt.</div>
 </div>
 
 <div class="command">
-  <h3>49. updatedb</h3>
-  <p> Update the database used by locate.</p>
-  <p> تحديث قاعدة البيانات التي يستخدمها locate.</p>
-  <div class="code">bash<br>sudo updatedb</div>
+<h3>49. updatedb</h3>
+<p> Update the database used by locate.</p>
+<p> تحديث قاعدة البيانات التي يستخدمها locate.</p>
+<div class="code">bash<br>sudo updatedb</div>
 </div>
 
 <div class="command" >
-  <h3>50. shutdown</h3>
-  <p> Shut down or restart the system.</p>
-  <p> إيقاف تشغيل النظام أو إعادة تشغيله.</p>
-  <div class="code">bash<br>sudo shutdown -h now</div>
-  <div class="example">أمثلة:<br> sudo shutdown -h now : إيقاف تشغيل النظام فورًا.</div>
+<h3>50. shutdown</h3>
+<p> Shut down or restart the system.</p>
+<p> إيقاف تشغيل النظام أو إعادة تشغيله.</p>
+<div class="code">bash<br>sudo shutdown -h now</div>
+<div class="example">أمثلة:<br> sudo shutdown -h now : إيقاف تشغيل النظام فورًا.</div>
 </div>
 </div>
 
 
 </div>
+
 <footer>
-    <p>Created by <a href="https://www.linkedin.com/in/haithem-mohamed-8b7143243/
-"> Haithem Mohamed</a> </p>
+    <p>Created by <a href="https://www.linkedin.com/in/haithem-mohamed-8b7143243/">Haithem Mohamed</a></p>
 </footer>
 
+<script>
+    function downloadPDF() {
+        const element = document.getElementById('content');
+        const options = {
+            margin: 1,
+            filename: 'bash_commands.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(options).from(element).save();
+    }
 </script>
 
 </body>
